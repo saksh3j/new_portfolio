@@ -5,6 +5,7 @@ import {
   contactLinks,
   ctaLinks,
   experiences,
+  education,
   navItems,
   profile,
   projects,
@@ -15,7 +16,7 @@ import { ArrowUpRight } from "lucide-react";
 
 export default function Home() {
   return (
-    <main className="min-h-screen bg-background text-foreground">
+    <main className="min-h-screen selection:bg-primary/10">
       <script
         type="application/ld+json"
         dangerouslySetInnerHTML={{ __html: JSON.stringify(personJsonLd) }}
@@ -24,187 +25,191 @@ export default function Home() {
         type="application/ld+json"
         dangerouslySetInnerHTML={{ __html: JSON.stringify(websiteJsonLd) }}
       />
-      <div className="mx-auto max-w-5xl px-5 py-8 sm:px-8 sm:py-12">
-        <div className="sticky top-4 z-20 mb-6 rounded-lg border border-border bg-card/95 px-4 py-3 shadow-sm backdrop-blur">
-          <div className="flex flex-wrap items-center justify-between gap-3">
-            <p className="text-sm font-semibold tracking-tight">
-              {profile.name} / saksh3j
-            </p>
-            <div className="flex items-center gap-3">
-              <nav aria-label="Primary" className="hidden gap-3 sm:flex">
-                {navItems.map((item) => (
-                  <a
-                    key={item.href}
-                    href={item.href}
-                    className="text-sm text-muted-foreground transition-colors hover:text-foreground"
-                  >
-                    {item.label}
-                  </a>
-                ))}
-              </nav>
-              <ThemeToggle />
+
+      {/* Modern Fixed Navbar */}
+      <header className="sticky top-0 z-50 w-full border-b border-border bg-background/80 backdrop-blur-md">
+        <div className="mx-auto flex h-16 max-w-4xl items-center justify-between px-6">
+          <p className="text-sm font-bold tracking-tight">
+            {profile.name}
+          </p>
+          <div className="flex items-center gap-6">
+            <nav className="hidden items-center gap-6 md:flex">
+              {navItems.map((item) => (
+                <a key={item.href} href={item.href} className="nav-link">
+                  {item.label}
+                </a>
+              ))}
+            </nav>
+            <ThemeToggle />
+          </div>
+        </div>
+      </header>
+
+      {/* Hero Section */}
+      <section id="hero" className="section-container">
+        <div className="max-w-3xl">
+          <p className="text-sm font-semibold uppercase tracking-wider text-muted-foreground">
+            {profile.role}
+          </p>
+          <h1 className="heading-lg mt-4 leading-tight">
+            {profile.headline}
+          </h1>
+          <p className="subheading mt-6">
+            Based in {profile.location}. Currently building fintech solutions at Finnaux Techsolutions.
+          </p>
+          <div className="mt-10 flex flex-wrap gap-4">
+            <a
+              href={ctaLinks.projects}
+              className="inline-flex h-11 items-center justify-center rounded-md bg-primary px-8 text-sm font-medium text-primary-foreground transition-colors hover:bg-primary/90"
+            >
+              View Projects
+            </a>
+            <a
+              href={ctaLinks.contact}
+              className="inline-flex h-11 items-center justify-center rounded-md border border-input bg-background px-8 text-sm font-medium transition-colors hover:bg-accent hover:text-accent-foreground"
+            >
+              Contact Me
+            </a>
+          </div>
+        </div>
+      </section>
+
+      {/* About Section */}
+      <section id="about" className="section-container border-t border-border">
+        <h2 className="text-xl font-bold">About</h2>
+        <div className="mt-8 grid gap-12 md:grid-cols-5">
+          <div className="md:col-span-3 space-y-6">
+            {about.map((paragraph, i) => (
+              <p key={i} className="text-base leading-relaxed text-muted-foreground">
+                {paragraph}
+              </p>
+            ))}
+          </div>
+          <div id="tech-stack" className="md:col-span-2">
+            <h3 className="text-sm font-semibold uppercase tracking-wider text-foreground">
+              Core Skills
+            </h3>
+            <div className="mt-4 flex flex-wrap gap-2">
+              {techStack.flatMap(g => g.items).map((item) => (
+                <span
+                  key={item}
+                  className="rounded-md bg-secondary px-3 py-1 text-xs font-medium text-secondary-foreground"
+                >
+                  {item}
+                </span>
+              ))}
             </div>
           </div>
         </div>
+      </section>
 
-        <div className="space-y-6">
-          <section
-            id="hero"
-            className="rounded-xl border border-border bg-card p-6 shadow-sm sm:p-8"
-          >
-            <p className="text-xs uppercase tracking-[0.16em] text-muted-foreground">
-              {profile.role}
-            </p>
-            <h1 className="mt-3 text-3xl font-semibold tracking-tight sm:text-4xl">
-              {profile.name}
-            </h1>
-            <p className="mt-2 text-sm text-muted-foreground">
-              {profile.positioning} - also known as saksh3j
-            </p>
-            <p className="mt-5 max-w-3xl text-base leading-7 text-foreground">
-              {profile.headline}
-            </p>
-            <div className="mt-6 flex flex-wrap gap-3">
-              <a
-                href={ctaLinks.projects}
-                className="inline-flex items-center gap-2 rounded-md border border-primary bg-primary px-4 py-2 text-sm font-medium text-primary-foreground transition-opacity hover:opacity-90"
-              >
-                View Projects
-              </a>
-              <a
-                href={ctaLinks.contact}
-                className="inline-flex items-center gap-2 rounded-md border border-border bg-background px-4 py-2 text-sm font-medium transition-colors hover:bg-accent hover:text-accent-foreground"
-              >
-                Contact Me
-              </a>
-            </div>
-          </section>
-
-          <section
-            id="about"
-            className="rounded-xl border border-border bg-card p-6 shadow-sm sm:p-8"
-          >
-            <h2 className="text-base font-semibold uppercase tracking-[0.1em]">
-              About
-            </h2>
-            <div className="mt-4 space-y-4">
-              {about.map((paragraph) => (
-                <p key={paragraph} className="text-sm leading-7 text-muted-foreground">
-                  {paragraph}
-                </p>
-              ))}
-            </div>
-          </section>
-
-          <section
-            id="tech-stack"
-            className="rounded-xl border border-border bg-card p-6 shadow-sm sm:p-8"
-          >
-            <h2 className="text-base font-semibold uppercase tracking-[0.1em]">
-              Tech Stack
-            </h2>
-            <div className="mt-4 grid gap-3 sm:grid-cols-2">
-              {techStack.map((group) => (
-                <article
-                  key={group.title}
-                  className="rounded-lg border border-border bg-background p-4 transition-colors hover:bg-accent/40"
-                >
-                  <h3 className="text-sm font-semibold">{group.title}</h3>
-                  <p className="mt-2 text-sm leading-6 text-muted-foreground">
-                    {group.items.join(", ")}
-                  </p>
-                </article>
-              ))}
-            </div>
-          </section>
-
-          <section
-            id="experience"
-            className="rounded-xl border border-border bg-card p-6 shadow-sm sm:p-8"
-          >
-            <h2 className="text-base font-semibold uppercase tracking-[0.1em]">
-              Experience
-            </h2>
-            <div className="mt-4 space-y-3">
-              {experiences.map((experience) => (
-                <article
-                  key={`${experience.company}-${experience.period}`}
-                  className="rounded-lg border border-border bg-background p-4 transition-colors hover:bg-accent/40"
-                >
-                  <div className="flex flex-wrap items-center justify-between gap-2">
-                    <h3 className="text-sm font-semibold">
-                      {experience.role} - {experience.company}
-                    </h3>
-                    <p className="text-xs text-muted-foreground">{experience.period}</p>
+      {/* Experience & Education Section */}
+      <section id="experience" className="section-container border-t border-border">
+        <div className="grid gap-16">
+          {/* Experience */}
+          <div>
+            <h2 className="text-xl font-bold">Work Experience</h2>
+            <div className="mt-8 space-y-12">
+              {experiences.map((exp, i) => (
+                <div key={i} className="relative pl-8 before:absolute before:left-0 before:top-1.5 before:h-2 before:w-2 before:rounded-full before:bg-primary">
+                  <div className="flex flex-col justify-between gap-1 sm:flex-row sm:items-center">
+                    <h3 className="font-semibold text-foreground">{exp.role}</h3>
+                    <span className="text-sm text-muted-foreground">{exp.period}</span>
                   </div>
-                  <p className="mt-2 text-sm leading-6 text-muted-foreground">
-                    {experience.summary}
+                  <p className="text-sm text-muted-foreground">{exp.company}</p>
+                  <p className="mt-4 text-sm leading-relaxed text-muted-foreground">
+                    {exp.summary}
                   </p>
-                </article>
+                </div>
               ))}
             </div>
-          </section>
+          </div>
 
-          <section
-            id="projects"
-            className="rounded-xl border border-border bg-card p-6 shadow-sm sm:p-8"
-          >
-            <h2 className="text-base font-semibold uppercase tracking-[0.1em]">
-              Projects
-            </h2>
-            <div className="mt-4 grid gap-3 md:grid-cols-3">
-              {projects.map((project) => (
-                <article
-                  key={project.title}
-                  className="rounded-lg border border-border bg-background p-4 transition-colors hover:bg-accent/40"
-                >
-                  <h3 className="text-sm font-semibold">{project.title}</h3>
-                  <p className="mt-2 text-sm leading-6 text-muted-foreground">
-                    {project.description}
-                  </p>
-                  <p className="mt-3 text-xs text-muted-foreground">
-                    {project.stack.join(" • ")}
-                  </p>
-                </article>
+          {/* Education */}
+          <div id="education">
+            <h2 className="text-xl font-bold">Education</h2>
+            <div className="mt-8 space-y-8">
+              {education.map((edu, i) => (
+                <div key={i} className="relative pl-8 before:absolute before:left-0 before:top-1.5 before:h-2 before:w-2 before:rounded-full before:bg-border">
+                  <div className="flex flex-col justify-between gap-1 sm:flex-row sm:items-center">
+                    <h3 className="font-semibold text-foreground">{edu.degree}</h3>
+                    <span className="text-sm text-muted-foreground">{edu.period}</span>
+                  </div>
+                  <p className="text-sm text-muted-foreground">{edu.school} • {edu.location}</p>
+                </div>
               ))}
             </div>
-          </section>
-
-          <section
-            id="contact"
-            className="rounded-xl border border-border bg-card p-6 shadow-sm sm:p-8"
-          >
-            <h2 className="text-base font-semibold uppercase tracking-[0.1em]">
-              Contact
-            </h2>
-            <p className="mt-2 text-sm text-muted-foreground">
-              Email, phone, and profiles are listed below. You can also send a
-              direct message using the form.
-            </p>
-            <ul className="mt-4 grid gap-2 sm:grid-cols-2">
-              {contactLinks.map((link) => (
-                <li key={link.type}>
-                  <a
-                    href={link.href}
-                    target={link.external ? "_blank" : undefined}
-                    rel={link.external ? "noreferrer noopener" : undefined}
-                    className="flex items-center justify-between rounded-md border border-border bg-background px-3 py-2.5 text-sm transition-colors hover:bg-accent hover:text-accent-foreground"
-                  >
-                    <span className="font-medium">{link.label}</span>
-                    <span className="inline-flex items-center gap-1 text-muted-foreground">
-                      {link.value}
-                      {link.external ? <ArrowUpRight className="h-3.5 w-3.5" /> : null}
-                    </span>
-                  </a>
-                </li>
-              ))}
-            </ul>
-            <div className="mt-5 rounded-lg border border-border bg-background p-4 sm:p-5">
-              <ContactForm />
-            </div>
-          </section>
+          </div>
         </div>
-      </div>
+      </section>
+
+      {/* Projects Section */}
+      <section id="projects" className="section-container border-t border-border">
+        <h2 className="text-xl font-bold">Projects</h2>
+        <div className="mt-8 grid gap-6 sm:grid-cols-2">
+          {projects.map((project) => (
+            <article key={project.title} className="card-base group">
+              <div className="flex items-start justify-between">
+                <h3 className="font-bold text-foreground group-hover:text-primary transition-colors">
+                  {project.title}
+                </h3>
+                <ArrowUpRight className="h-4 w-4 text-muted-foreground transition-transform group-hover:-translate-y-1 group-hover:translate-x-1" />
+              </div>
+              <p className="mt-3 text-sm leading-relaxed text-muted-foreground">
+                {project.description}
+              </p>
+              <div className="mt-6 flex flex-wrap gap-2">
+                {project.stack.map(s => (
+                  <span key={s} className="text-[10px] font-bold uppercase tracking-wider text-muted-foreground/70">
+                    {s}
+                  </span>
+                ))}
+              </div>
+            </article>
+          ))}
+        </div>
+      </section>
+
+      {/* Contact Section */}
+      <section id="contact" className="section-container border-t border-border">
+        <div className="max-w-2xl">
+          <h2 className="text-xl font-bold">Get in Touch</h2>
+          <p className="mt-4 text-muted-foreground">
+            I'm currently open to new opportunities and collaborations. Feel free to reach out!
+          </p>
+          
+          <div className="mt-10 grid gap-4 sm:grid-cols-2">
+            {contactLinks.filter(l => ["email", "linkedin", "github"].includes(l.type)).map((link) => (
+              <a
+                key={link.type}
+                href={link.href}
+                target={link.external ? "_blank" : undefined}
+                className="flex items-center gap-3 rounded-lg border border-border p-4 transition-colors hover:bg-accent"
+              >
+                <div className="flex h-10 w-10 items-center justify-center rounded-md bg-secondary text-secondary-foreground">
+                  <ArrowUpRight className="h-4 w-4" />
+                </div>
+                <div>
+                  <p className="text-xs font-medium uppercase tracking-wider text-muted-foreground">
+                    {link.label}
+                  </p>
+                  <p className="text-sm font-semibold">{link.value}</p>
+                </div>
+              </a>
+            ))}
+          </div>
+
+          <div className="mt-12 rounded-xl border border-border p-8">
+            <ContactForm />
+          </div>
+        </div>
+      </section>
+
+      <footer className="border-t border-border py-12">
+        <div className="mx-auto max-w-4xl px-6 text-center text-sm text-muted-foreground">
+          &copy; {new Date().getFullYear()} {profile.name}. All rights reserved.
+        </div>
+      </footer>
     </main>
   );
 }

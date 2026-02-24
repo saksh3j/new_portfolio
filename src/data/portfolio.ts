@@ -27,6 +27,13 @@ export interface ExperienceItem {
   summary: string;
 }
 
+export interface EducationItem {
+  school: string;
+  degree: string;
+  period: string;
+  location: string;
+}
+
 export interface ProjectItem {
   title: string;
   description: string;
@@ -43,43 +50,51 @@ export const profile = {
 };
 
 export const about = [
-  "I am a Software Engineer focused on building clean, scalable, and high-performance web applications where architecture, performance, and usability matter.",
-  "I have worked in production product environments, contributing to dashboard systems, workflow automation modules, API-driven interfaces, and real-time application features.",
-  "My primary stack includes React, Next.js, TypeScript, and Python. I focus on maintainable code and shipping features that solve clear business problems.",
+  "I am a Software Engineer at Finnaux Techsolutions, specializing in building high-performance fintech systems and scalable web applications.",
+  "With experience in both React/Next.js and Python-based backend services, I focus on delivering production-grade solutions with clean architecture and optimized performance.",
+  "I graduated with a B.Tech in Computer Science from Poornima University, and I'm passionate about workflow automation, state management, and building user-centric products.",
 ];
 
 export const navItems = [
   { label: "About", href: "#about" },
   { label: "Tech Stack", href: "#tech-stack" },
   { label: "Experience", href: "#experience" },
+  { label: "Education", href: "#education" },
   { label: "Projects", href: "#projects" },
   { label: "Contact", href: "#contact" },
 ];
 
 export const techStack: TechCategory[] = [
   {
+    title: "Languages",
+    items: ["Python", "JavaScript", "TypeScript"],
+  },
+  {
     title: "Frontend",
-    items: ["React", "Next.js", "TypeScript", "Tailwind CSS"],
+    items: ["React", "Next.js", "Tailwind CSS"],
   },
   {
     title: "Backend & APIs",
-    items: ["Python", "REST APIs", "Strapi"],
+    items: ["Node.js", "NestJS", "Django", "Flask"],
   },
   {
     title: "Database",
-    items: ["MySQL"],
+    items: ["MySQL", "PostgreSQL", "MongoDB"],
+  },
+  {
+    title: "State Management",
+    items: ["TanStack Query", "Context API", "TanStack Table"],
   },
   {
     title: "DevOps & Tools",
-    items: ["Docker", "Git", "GitHub"],
+    items: ["Docker", "Git", "GitHub", "Postman", "Vercel"],
   },
   {
-    title: "Core Focus Areas",
+    title: "Core Concepts",
     items: [
-      "Performance Optimization",
       "Workflow Automation",
-      "State Management",
-      "Real-time Systems",
+      "Performance Optimization",
+      "Scalable Architecture",
     ],
   },
 ];
@@ -88,44 +103,47 @@ export const experiences: ExperienceItem[] = [
   {
     role: "Software Engineer",
     company: "Finnaux Techsolutions Pvt. Ltd.",
-    period: "Apr 2025 - Present",
+    period: "April 2025 - Present",
     summary:
-      "Worked on Loan Origination and Loan Management modules, built dashboard components, integrated APIs, improved performance, and contributed to backend workflow logic.",
+      "Built and optimized LOS dashboard modules using React, Next.js, and TypeScript for high-volume loan workflows. Developed Python-based backend services and integrated financial APIs to streamline operational processes. Improved UI performance and state management using TanStack Query and TanStack Table.",
   },
   {
-    role: "Frontend Developer",
-    company: "99isolutions",
-    period: "Nov 2024 - Apr 2025",
+    role: "Web Developer",
+    company: "99iSolutions",
+    period: "Nov 2024 - April 2025",
     summary:
-      "Contributed to the GetGabs product through UI enhancements, bug fixes, and API integrations in a live product environment.",
+      "Built and optimized Django-based backend services, reducing API response time by 25% through query optimization and database indexing. Developed and deployed full-stack applications with React frontend and Dockerized environments.",
   },
   {
     role: "Full Stack Developer Intern",
-    company: "Internship",
-    period: "May 2024 - Jul 2024",
+    company: "Full Stack Learning",
+    period: "May 2024 - July 2024",
     summary:
-      "Built responsive web applications and gained hands-on exposure to full-stack development workflows.",
+      "Built RESTful APIs and backend modules using Python, Django, and Flask. Implemented authentication, CRUD operations, and structured API services for real-world backend systems.",
+  },
+];
+
+export const education: EducationItem[] = [
+  {
+    school: "Poornima University",
+    degree: "Bachelor of Technology in Computer Science & Engineering",
+    period: "Sept. 2021 – June 2025",
+    location: "Jaipur, India",
   },
 ];
 
 export const projects: ProjectItem[] = [
   {
-    title: "Real-time Support Ticket System",
+    title: "SyncNest-Chat",
     description:
-      "Role-based ticket management platform with real-time updates, clear assignment workflow, and scalable backend architecture.",
-    stack: ["Socket.io", "TypeScript", "REST APIs"],
+      "Real-time chat application using React and Node.js + Socket.io, enabling instant bi-directional messaging with room-based conversations and responsive UI.",
+    stack: ["React", "Node.js", "Socket.io"],
   },
   {
-    title: "Fintech Dashboard",
+    title: "StackPilot",
     description:
-      "Full-stack financial dashboard with authentication, API integrations, and performance-optimized UI components.",
-    stack: ["Next.js", "MySQL", "Python"],
-  },
-  {
-    title: "Workflow Automation Web App",
-    description:
-      "Scalable web application focused on workflow automation, reliable data handling, and operational efficiency.",
-    stack: ["React", "Node.js", "Docker"],
+      "Modular NestJS backend with JWT, OAuth, MongoDB, and Stripe integration for secure multi-tenant SaaS workflows and subscription management.",
+    stack: ["NestJS", "MongoDB", "Stripe", "OAuth"],
   },
 ];
 

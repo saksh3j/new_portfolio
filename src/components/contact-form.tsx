@@ -53,10 +53,12 @@ export function ContactForm() {
   }
 
   return (
-    <form onSubmit={handleSubmit} className="space-y-4">
-      <div className="grid gap-4 sm:grid-cols-2">
-        <label className="space-y-2 text-sm font-medium text-foreground">
-          Name
+    <form onSubmit={handleSubmit} className="space-y-6">
+      <div className="grid gap-6 sm:grid-cols-2">
+        <div className="space-y-2">
+          <label className="text-sm font-medium leading-none peer-disabled:cursor-not-allowed peer-disabled:opacity-70">
+            Name
+          </label>
           <input
             type="text"
             required
@@ -64,12 +66,14 @@ export function ContactForm() {
             onChange={(event) =>
               setForm((prev) => ({ ...prev, name: event.target.value }))
             }
-            className="w-full rounded-md border border-input bg-background px-3 py-2 text-sm outline-none ring-0 transition-colors focus:border-ring"
-            placeholder="Your full name"
+            className="flex h-10 w-full rounded-md border border-input bg-background px-3 py-2 text-sm ring-offset-background file:border-0 file:bg-transparent file:text-sm file:font-medium placeholder:text-muted-foreground focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 disabled:cursor-not-allowed disabled:opacity-50"
+            placeholder="Your name"
           />
-        </label>
-        <label className="space-y-2 text-sm font-medium text-foreground">
-          Email
+        </div>
+        <div className="space-y-2">
+          <label className="text-sm font-medium leading-none peer-disabled:cursor-not-allowed peer-disabled:opacity-70">
+            Email
+          </label>
           <input
             type="email"
             required
@@ -77,14 +81,16 @@ export function ContactForm() {
             onChange={(event) =>
               setForm((prev) => ({ ...prev, email: event.target.value }))
             }
-            className="w-full rounded-md border border-input bg-background px-3 py-2 text-sm outline-none ring-0 transition-colors focus:border-ring"
+            className="flex h-10 w-full rounded-md border border-input bg-background px-3 py-2 text-sm ring-offset-background file:border-0 file:bg-transparent file:text-sm file:font-medium placeholder:text-muted-foreground focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 disabled:cursor-not-allowed disabled:opacity-50"
             placeholder="you@example.com"
           />
-        </label>
+        </div>
       </div>
 
-      <label className="space-y-2 text-sm font-medium text-foreground">
-        Subject
+      <div className="space-y-2">
+        <label className="text-sm font-medium leading-none peer-disabled:cursor-not-allowed peer-disabled:opacity-70">
+          Subject
+        </label>
         <input
           type="text"
           required
@@ -92,43 +98,44 @@ export function ContactForm() {
           onChange={(event) =>
             setForm((prev) => ({ ...prev, subject: event.target.value }))
           }
-          className="w-full rounded-md border border-input bg-background px-3 py-2 text-sm outline-none ring-0 transition-colors focus:border-ring"
+          className="flex h-10 w-full rounded-md border border-input bg-background px-3 py-2 text-sm ring-offset-background file:border-0 file:bg-transparent file:text-sm file:font-medium placeholder:text-muted-foreground focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 disabled:cursor-not-allowed disabled:opacity-50"
           placeholder="Project inquiry"
         />
-      </label>
+      </div>
 
-      <label className="space-y-2 text-sm font-medium text-foreground">
-        Message
+      <div className="space-y-2">
+        <label className="text-sm font-medium leading-none peer-disabled:cursor-not-allowed peer-disabled:opacity-70">
+          Message
+        </label>
         <textarea
           required
-          rows={5}
+          rows={4}
           value={form.message}
           onChange={(event) =>
             setForm((prev) => ({ ...prev, message: event.target.value }))
           }
-          className="w-full resize-y rounded-md border border-input bg-background px-3 py-2 text-sm outline-none ring-0 transition-colors focus:border-ring"
-          placeholder="Tell me about your project, timeline, and requirements."
+          className="flex min-h-[120px] w-full rounded-md border border-input bg-background px-3 py-2 text-sm ring-offset-background placeholder:text-muted-foreground focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 disabled:cursor-not-allowed disabled:opacity-50"
+          placeholder="Tell me more about your project..."
         />
-      </label>
-
-      <div className="flex items-center gap-3">
-        <button
-          type="submit"
-          disabled={status === "loading"}
-          className="inline-flex items-center justify-center rounded-md border border-primary bg-primary px-4 py-2 text-sm font-medium text-primary-foreground transition-opacity disabled:cursor-not-allowed disabled:opacity-70"
-        >
-          {status === "loading" ? "Sending..." : "Send Message"}
-        </button>
-        {feedback ? (
-          <p
-            className={`text-sm ${
-              status === "success" ? "text-foreground" : "text-destructive"
-            }`}
-          >
-            {feedback}
-          </p>
-        ) : null}
       </div>
+
+      <button
+        type="submit"
+        disabled={status === "loading"}
+        className="inline-flex h-10 w-full items-center justify-center rounded-md bg-primary px-4 py-2 text-sm font-medium text-primary-foreground ring-offset-background transition-colors hover:bg-primary/90 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 disabled:pointer-events-none disabled:opacity-50"
+      >
+        {status === "loading" ? "Sending..." : "Send Message"}
+      </button>
+
+      {feedback && (
+        <p
+          className={`text-center text-sm font-medium ${
+            status === "error" ? "text-destructive" : "text-emerald-600 dark:text-emerald-400"
+          }`}
+        >
+          {feedback}
+        </p>
+      )}
     </form>
   );
 }
