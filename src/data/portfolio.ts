@@ -42,11 +42,11 @@ export interface ProjectItem {
 
 export const profile = {
   name: "saksh3j (Saksham Jain)",
-  role: "Product Engineer",
+  role: "Software Developer",
   positioning: "Engineering high-performance fintech solutions",
   location: "Jaipur, India",
   headline:
-    "Software Engineer specialized in Fintech & Scalable Systems. Known as saksh3j across the web.",
+    "Software Developer specialized in Fintech & Scalable Systems. Known as saksh3j across the web.",
 };
 
 export const about = [

@@ -1,7 +1,6 @@
 import type { Metadata, Viewport } from "next";
 import { Geist, Geist_Mono } from "next/font/google";
 import { ThemeProvider } from "@/components/theme-provider";
-import { profile } from "@/data/portfolio";
 import { siteDescription, siteTitle, siteUrl } from "@/lib/seo";
 import "./globals.css";
 
@@ -26,11 +25,11 @@ export const metadata: Metadata = {
   keywords: [
     "saksh3j",
     "Saksham Jain",
-    "Product Engineer",
+    "Software Developer",
     "Fintech Expert",
-    "Software Engineer Jaipur",
+    "Software Developer Jaipur",
     "Next.js Developer India",
-    "Fintech Solutions Engineer",
+    "Fintech Solutions Developer",
     "Full Stack Developer saksh3j",
   ],
   authors: [{ name: "saksh3j (Saksham Jain)", url: siteUrl }],

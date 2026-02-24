@@ -11,9 +11,9 @@ export const siteUrl =
   isValidSiteUrl && normalizedSiteUrl ? normalizedSiteUrl : fallbackSiteUrl;
 
 export const siteName = "saksh3j | Saksham Jain";
-export const siteTitle = "saksh3j (Saksham Jain) | Product Engineer & Fintech Expert";
+export const siteTitle = "saksh3j (Saksham Jain) | Software Developer & Fintech Expert";
 export const siteDescription =
-  "I am saksh3j (Saksham Jain), a high-performance Software Engineer specializing in Fintech systems, Next.js, and Scalable Architectures. Explore my projects and professional journey.";
+  "I am saksh3j (Saksham Jain), a high-performance Software Developer specializing in Fintech systems, Next.js, and Scalable Architectures. Explore my projects and professional journey.";
 
 const sameAsLinks = contactLinks
   .filter((link) => link.external)
@@ -27,7 +27,7 @@ export const personJsonLd = {
   alternateName: "saksh3j",
   url: siteUrl,
   image: `${siteUrl}/favicon.ico`,
-  jobTitle: "Product Engineer",
+  jobTitle: "Software Developer",
   worksFor: {
     "@type": "Organization",
     "name": "Finnaux Techsolutions"
