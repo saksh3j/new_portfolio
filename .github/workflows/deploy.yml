@@ -48,9 +48,12 @@ jobs:
         with:
           static_site_generator: next
       - name: Install dependencies
-        run: npm install
+        run: npm ci
       - name: Build with Next.js
         run: npx next build
+        env:
+          NEXT_PUBLIC_WEB3FORMS_ACCESS_KEY: ${{ secrets.NEXT_PUBLIC_WEB3FORMS_ACCESS_KEY }}
+          NEXT_PUBLIC_SITE_URL: https://saksh3j.github.io/new_portfolio
       - name: Upload artifact
         uses: actions/upload-pages-artifact@v3
         with:
