@@ -1,6 +1,6 @@
 "use client";
 
-import React, { useState } from "react";
+import React, { useState, useRef, useEffect } from "react";
 import { 
   FileCode, 
   Files, 
@@ -14,10 +14,12 @@ import {
   ChevronDown,
   X,
   Terminal as TerminalIcon,
-  Circle
+  Circle,
+  Layout,
+  Info
 } from "lucide-react";
 import { cn } from "@/lib/utils";
-import { profile, experiences, education, projects, techStack } from "@/data/portfolio";
+import { profile, about, experiences, education, projects, techStack, navItems } from "@/data/portfolio";
 
 const FILES = [
   { name: "About.py", icon: <FileCode className="h-4 w-4 text-blue-400" />, type: "python" },
@@ -30,6 +32,21 @@ const FILES = [
 export default function Home() {
   const [activeFile, setActiveFile] = useState(FILES[0]);
   const [openFiles, setOpenFiles] = useState([FILES[0]]);
+  const [showTerminal, setShowTerminal] = useState(true);
+  const [terminalHistory, setTerminalHistory] = useState<string[]>([
+    "Welcome to saksh3j terminal v1.0.0",
+    "Type 'help' to see available commands."
+  ]);
+  const [currentCommand, setCurrentCommand] = useState("");
+  const terminalEndRef = useRef<HTMLDivElement>(null);
+
+  const scrollToBottom = () => {
+    terminalEndRef.current?.scrollIntoView({ behavior: "smooth" });
+  };
+
+  useEffect(() => {
+    scrollToBottom();
+  }, [terminalHistory]);
 
   const handleFileClick = (file: typeof FILES[0]) => {
     setActiveFile(file);
@@ -45,6 +62,50 @@ export default function Home() {
     if (activeFile.name === fileName && newOpenFiles.length > 0) {
       setActiveFile(newOpenFiles[newOpenFiles.length - 1]);
     }
+  };
+
+  const handleCommand = (e: React.FormEvent) => {
+    e.preventDefault();
+    const cmd = currentCommand.trim().toLowerCase();
+    let response = "";
+
+    if (cmd === "clear") {
+      setTerminalHistory([]);
+      setCurrentCommand("");
+      return;
+    }
+
+    setTerminalHistory(prev => [...prev, `saksh3j@portfolio:~$ ${currentCommand}`]);
+
+    switch (cmd) {
+      case "help":
+        response = "Available commands: help, ls, whoami, contact, socials, clear, exit";
+        break;
+      case "ls":
+        response = FILES.map(f => f.name).join("  ");
+        break;
+      case "whoami":
+        response = `${profile.name} - ${profile.role}. Based in ${profile.location}.`;
+        break;
+      case "contact":
+        response = "Email: jain.merge@gmail.com | Phone: +91-9461489207";
+        break;
+      case "socials":
+        response = "GitHub: github.com/saksh3j | LinkedIn: linkedin.com/in/saksh3j";
+        break;
+      case "exit":
+        setShowTerminal(false);
+        break;
+      case "":
+        break;
+      default:
+        response = `Command not found: ${cmd}. Type 'help' for assistance.`;
+    }
+
+    if (response) {
+      setTerminalHistory(prev => [...prev, response]);
+    }
+    setCurrentCommand("");
   };
 
   return (
@@ -78,7 +139,7 @@ export default function Home() {
           </div>
           
           <div className="flex flex-col">
-            {FILES.map((file) => (
+            {FILES.map((file: typeof FILES[0]) => (
               <div
                 key={file.name}
                 onClick={() => handleFileClick(file)}
@@ -99,7 +160,7 @@ export default function Home() {
       <div className="flex flex-1 flex-col overflow-hidden bg-[#1e1e1e]">
         {/* Tabs Bar */}
         <div className="flex h-9 w-full overflow-x-auto bg-[#252526] no-scrollbar">
-          {openFiles.map((file) => (
+          {openFiles.map((file: typeof FILES[0]) => (
             <div
               key={file.name}
               onClick={() => setActiveFile(file)}
@@ -132,7 +193,7 @@ export default function Home() {
         </div>
 
         {/* Editor Area */}
-        <div className="flex-1 overflow-auto p-8 font-mono text-[14px] md:text-[16px] leading-relaxed">
+        <div className="flex-1 overflow-auto p-8 font-mono text-[14px] md:text-[16px] leading-relaxed scrollbar-thin scrollbar-thumb-[#3c3c3c]">
           <div className="mx-auto max-w-4xl">
             {activeFile.name === "About.py" && <AboutContent />}
             {activeFile.name === "Experience.ts" && <ExperienceContent />}
@@ -142,12 +203,46 @@ export default function Home() {
           </div>
         </div>
 
+        {/* Terminal Panel */}
+        {showTerminal && (
+          <div className="h-1/3 min-h-[150px] flex flex-col border-t border-[#3c3c3c] bg-[#1e1e1e]">
+            <div className="flex items-center justify-between px-4 py-1 text-[11px] font-bold uppercase tracking-wider text-[#bbbbbb] border-b border-[#3c3c3c]">
+              <div className="flex gap-4">
+                <span className="text-white border-b border-white cursor-pointer pb-1">Terminal</span>
+                <span className="hover:text-white cursor-pointer">Output</span>
+                <span className="hover:text-white cursor-pointer">Debug Console</span>
+              </div>
+              <X className="h-4 w-4 cursor-pointer hover:bg-[#3c3c3c] rounded" onClick={() => setShowTerminal(false)} />
+            </div>
+            <div className="flex-1 overflow-auto p-4 font-mono text-[13px] text-[#cccccc] scrollbar-thin scrollbar-thumb-[#3c3c3c]">
+              {terminalHistory.map((line: string, i: number) => (
+                <div key={i} className="mb-1">{line}</div>
+              ))}
+              <form onSubmit={handleCommand} className="flex gap-2">
+                <span className="text-green-400">saksh3j@portfolio:~$</span>
+                <input
+                  type="text"
+                  value={currentCommand}
+                  onChange={(e) => setCurrentCommand(e.target.value)}
+                  className="flex-1 bg-transparent outline-none border-none text-[#cccccc]"
+                  autoFocus
+                />
+              </form>
+              <div ref={terminalEndRef} />
+            </div>
+          </div>
+        )}
+
         {/* Status Bar */}
         <div className="flex h-6 w-full items-center justify-between bg-[#007acc] px-3 text-[12px] text-white">
           <div className="flex items-center gap-4">
             <div className="flex items-center gap-1 hover:bg-[#1f8ad2] px-1 cursor-pointer">
               <GitBranch className="h-3 w-3" />
               <span>main*</span>
+            </div>
+            <div className="flex items-center gap-1 hover:bg-[#1f8ad2] px-1 cursor-pointer" onClick={() => setShowTerminal(!showTerminal)}>
+              <TerminalIcon className="h-3 w-3" />
+              <span>Terminal</span>
             </div>
             <div className="flex items-center gap-1 hover:bg-[#1f8ad2] px-1 cursor-pointer">
               <Circle className="h-2 w-2 fill-white" />
@@ -179,7 +274,7 @@ function AboutContent() {
         <p className="mt-4"><span className="code-keyword">def</span> <span className="code-function">get_bio</span>(<span className="code-variable">self</span>):</p>
         <div className="pl-8 text-[#cccccc]">
           <span className="code-string">&quot;&quot;&quot;</span>
-          {about.map((p, i) => (
+          {about.map((p: string, i: number) => (
             <p key={i} className="mt-2 text-[#ce9178]">{p}</p>
           ))}
           <span className="code-string">&quot;&quot;&quot;</span>
@@ -194,7 +289,7 @@ function ExperienceContent() {
     <div className="space-y-6">
       <p><span className="code-keyword">interface</span> <span className="code-function">Experience</span> {"{"}</p>
       <div className="pl-8 space-y-8">
-        {experiences.map((exp, i) => (
+        {experiences.map((exp: any, i: number) => (
           <div key={i} className="border-l-2 border-[#3c3c3c] pl-4">
             <p><span className="code-comment">// {exp.period}</span></p>
             <p><span className="code-keyword">const</span> <span className="code-variable">{exp.company.replace(/\s+/g, '')}</span> = {"{"}</p>
@@ -215,13 +310,13 @@ function ProjectsContent() {
   return (
     <div className="text-[#9cdcfe]">
       <p className="text-[#cccccc]">{"["}</p>
-      {projects.map((project, i) => (
+      {projects.map((project: any, i: number) => (
         <div key={i} className="pl-8 py-2">
           <p className="text-[#cccccc]">{"{"}</p>
           <div className="pl-8">
             <p><span className="text-[#9cdcfe]">&quot;title&quot;</span>: <span className="code-string">&quot;{project.title}&quot;</span>,</p>
             <p><span className="text-[#9cdcfe]">&quot;description&quot;</span>: <span className="code-string">&quot;{project.description}&quot;</span>,</p>
-            <p><span className="text-[#9cdcfe]">&quot;stack&quot;</span>: [<span className="code-string">{project.stack.map(s => `"${s}"`).join(", ")}</span>]</p>
+            <p><span className="text-[#9cdcfe]">&quot;stack&quot;</span>: [<span className="code-string">{project.stack.map((s: string) => `"${s}"`).join(", ")}</span>]</p>
           </div>
           <p className="text-[#cccccc]">{"}"}{i < projects.length - 1 ? "," : ""}</p>
         </div>
@@ -234,11 +329,11 @@ function ProjectsContent() {
 function SkillsContent() {
   return (
     <div className="space-y-8">
-      {techStack.map((group, i) => (
+      {techStack.map((group: any, i: number) => (
         <div key={i}>
           <p className="code-function">.{group.title.toLowerCase().replace(/\s+/g, '-')}</p>
           <div className="pl-8 border-l-2 border-[#3c3c3c]">
-            {group.items.map((item, j) => (
+            {group.items.map((item: string, j: number) => (
               <p key={j}><span className="code-keyword">{item.toLowerCase().replace(/\s+/g, '-')}</span>: <span className="code-number">mastered</span>;</p>
             ))}
           </div>
