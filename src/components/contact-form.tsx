@@ -43,8 +43,8 @@ export function ContactForm() {
         body: JSON.stringify({
           ...form,
           access_key: accessKey,
-          from_name: "Portfolio Contact",
-          subject: `New Message: ${form.subject}`,
+          from_name: `${form.name} via saksh3j Portfolio`,
+          subject: `Portfolio Inquiry: ${form.subject}`,
         }),
       });
 
