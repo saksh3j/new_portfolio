@@ -10,10 +10,10 @@ const isValidSiteUrl = normalizedSiteUrl
 export const siteUrl =
   isValidSiteUrl && normalizedSiteUrl ? normalizedSiteUrl : fallbackSiteUrl;
 
-export const siteName = "Saksham Jain (saksh3j)";
-export const siteTitle = "Saksham Jain | saksh3j | Software Engineer";
+export const siteName = "saksh3j | Saksham Jain";
+export const siteTitle = "saksh3j (Saksham Jain) | Product Engineer & Fintech Expert";
 export const siteDescription =
-  "Portfolio of Saksham Jain (saksh3j), an early-career Product Engineer with fintech production experience building scalable web applications.";
+  "I am saksh3j (Saksham Jain), a high-performance Software Engineer specializing in Fintech systems, Next.js, and Scalable Architectures. Explore my projects and professional journey.";
 
 const sameAsLinks = contactLinks
   .filter((link) => link.external)
@@ -27,7 +27,12 @@ export const personJsonLd = {
   alternateName: "saksh3j",
   url: siteUrl,
   image: `${siteUrl}/favicon.ico`,
-  jobTitle: profile.role,
+  jobTitle: "Product Engineer",
+  worksFor: {
+    "@type": "Organization",
+    "name": "Finnaux Techsolutions"
+  },
+  knowsAbout: ["Fintech", "Next.js", "React", "Python", "TypeScript", "Scalable Systems"],
   email: "mailto:jain.merge@gmail.com",
   telephone: "+91-9461489207",
   address: {

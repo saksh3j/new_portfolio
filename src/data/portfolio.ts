@@ -41,12 +41,12 @@ export interface ProjectItem {
 }
 
 export const profile = {
-  name: "Saksham Jain",
-  role: "Software Engineer",
-  positioning: "Early-career Product Engineer with fintech production experience",
-  headline:
-    "Building scalable, production-ready web applications with modern frontend architecture and backend integrations.",
+  name: "saksh3j (Saksham Jain)",
+  role: "Product Engineer",
+  positioning: "Engineering high-performance fintech solutions",
   location: "Jaipur, India",
+  headline:
+    "Software Engineer specialized in Fintech & Scalable Systems. Known as saksh3j across the web.",
 };
 
 export const about = [
