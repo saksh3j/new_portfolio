@@ -28,21 +28,34 @@ export function ContactForm() {
     setStatus("loading");
     setFeedback("");
 
+    const accessKey = process.env.NEXT_PUBLIC_WEB3FORMS_ACCESS_KEY;
+
+    if (!accessKey) {
+      setStatus("error");
+      setFeedback("Contact form is not configured yet. Please add your Web3Forms Access Key.");
+      return;
+    }
+
     try {
-      const response = await fetch("/api/contact", {
+      const response = await fetch("https://api.web3forms.com/submit", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
-        body: JSON.stringify(form),
+        body: JSON.stringify({
+          ...form,
+          access_key: accessKey,
+          from_name: "Portfolio Contact",
+          subject: `New Message: ${form.subject}`,
+        }),
       });
 
-      const data = (await response.json()) as { message?: string };
+      const data = (await response.json()) as { success: boolean; message?: string };
 
-      if (!response.ok) {
+      if (!data.success) {
         throw new Error(data.message ?? "Unable to send message.");
       }
 
       setStatus("success");
-      setFeedback("Message sent successfully.");
+      setFeedback("Message sent successfully!");
       setForm(initialState);
     } catch (error) {
       setStatus("error");
