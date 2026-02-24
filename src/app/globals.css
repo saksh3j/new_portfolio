@@ -71,44 +71,7 @@
   --radius-md: calc(var(--radius) - 2px);
   --radius-lg: var(--radius);
   --radius-xl: calc(var(--radius) + 4px);
-
-  /* VS Code Colors */
-  --vscode-bg: #1e1e1e;
-  --vscode-sidebar: #252526;
-  --vscode-activitybar: #333333;
-  --vscode-tab-active: #1e1e1e;
-  --vscode-tab-inactive: #2d2d2d;
-  --vscode-status-bg: #007acc;
-  --vscode-border: #3c3c3c;
-  --vscode-text: #cccccc;
-  --vscode-keyword: #569cd6;
-  --vscode-string: #ce9178;
-  --vscode-comment: #6a9955;
-  --vscode-function: #dcdcaa;
-
-  --animate-spotlight: spotlight 2s ease .75s 1 forwards;
-  @keyframes spotlight {
-    0% {
-      opacity: 0;
-      transform: translate(-72%, -62%) scale(0.5);
-    }
-    100% {
-      opacity: 1;
-      transform: translate(-50%, -40%) scale(1);
-    }
-  }
 }
-
-.vscode-container {
-  @apply flex h-screen w-screen overflow-hidden bg-[#1e1e1e] text-[#cccccc] font-mono selection:bg-[#264f78];
-}
-
-.code-keyword { color: #569cd6; }
-.code-string { color: #ce9178; }
-.code-comment { color: #6a9955; }
-.code-function { color: #dcdcaa; }
-.code-variable { color: #9cdcfe; }
-.code-number { color: #b5cea8; }
 
 * {
   border-color: hsl(var(--border));
