@@ -102,7 +102,20 @@ body {
 }
 
 .text-reveal {
-  @apply animate-in fade-in slide-in-from-bottom-4 duration-1000 fill-mode-both;
+  opacity: 0;
+  transform: translateY(1rem);
+  animation: fade-in-up 1s ease-out forwards;
+}
+
+@keyframes fade-in-up {
+  from {
+    opacity: 0;
+    transform: translateY(1rem);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
 }
 
 .card-base {
