@@ -1,263 +1,265 @@
-import { ContactForm } from "@/components/contact-form";
-import { ThemeToggle } from "@/components/theme-toggle";
-import { Spotlight } from "@/components/spotlight";
-import { TextGenerateEffect } from "@/components/text-generate-effect";
-import { BentoGrid, BentoGridItem } from "@/components/bento-grid";
-import { BackgroundBeams } from "@/components/background-beams";
-import {
-  about,
-  contactLinks,
-  ctaLinks,
-  experiences,
-  education,
-  navItems,
-  profile,
-  projects,
-  techStack,
-} from "@/data/portfolio";
-import { personJsonLd, websiteJsonLd } from "@/lib/seo";
-import { ArrowUpRight, Code2, Globe, Sparkles, Terminal } from "lucide-react";
+"use client";
+
+import React, { useState } from "react";
+import { 
+  FileCode, 
+  Files, 
+  Search, 
+  GitBranch, 
+  Play, 
+  Blocks, 
+  Settings, 
+  UserCircle,
+  ChevronRight,
+  ChevronDown,
+  X,
+  Terminal as TerminalIcon,
+  Circle
+} from "lucide-react";
+import { cn } from "@/lib/utils";
+import { profile, experiences, education, projects, techStack } from "@/data/portfolio";
+
+const FILES = [
+  { name: "About.py", icon: <FileCode className="h-4 w-4 text-blue-400" />, type: "python" },
+  { name: "Experience.ts", icon: <FileCode className="h-4 w-4 text-blue-500" />, type: "typescript" },
+  { name: "Projects.json", icon: <FileCode className="h-4 w-4 text-yellow-500" />, type: "json" },
+  { name: "Skills.css", icon: <FileCode className="h-4 w-4 text-purple-400" />, type: "css" },
+  { name: "Contact.sh", icon: <TerminalIcon className="h-4 w-4 text-green-400" />, type: "bash" },
+];
 
 export default function Home() {
+  const [activeFile, setActiveFile] = useState(FILES[0]);
+  const [openFiles, setOpenFiles] = useState([FILES[0]]);
+
+  const handleFileClick = (file: typeof FILES[0]) => {
+    setActiveFile(file);
+    if (!openFiles.find(f => f.name === file.name)) {
+      setOpenFiles([...openFiles, file]);
+    }
+  };
+
+  const closeFile = (e: React.MouseEvent, fileName: string) => {
+    e.stopPropagation();
+    const newOpenFiles = openFiles.filter(f => f.name !== fileName);
+    setOpenFiles(newOpenFiles);
+    if (activeFile.name === fileName && newOpenFiles.length > 0) {
+      setActiveFile(newOpenFiles[newOpenFiles.length - 1]);
+    }
+  };
+
   return (
-    <main className="min-h-screen selection:bg-primary/10 relative">
-      <script
-        type="application/ld+json"
-        dangerouslySetInnerHTML={{ __html: JSON.stringify(personJsonLd) }}
-      />
-      <script
-        type="application/ld+json"
-        dangerouslySetInnerHTML={{ __html: JSON.stringify(websiteJsonLd) }}
-      />
-
-      {/* Modern Fixed Navbar */}
-      <header className="sticky top-0 z-[100] w-full border-b border-border bg-background/80 backdrop-blur-md">
-        <div className="mx-auto flex max-w-7xl items-center justify-between px-6 py-4">
-          <a href="#" className="text-xl font-black tracking-tighter hover:opacity-80 transition-opacity">
-            saksh3j<span className="text-primary">.</span>
-          </a>
-
-          <div className="flex items-center gap-6">
-            <nav className="hidden items-center gap-8 md:flex">
-              {navItems.map((item) => (
-                <a key={item.href} href={item.href} className="nav-link font-bold uppercase tracking-widest text-[10px]">
-                  {item.label}
-                </a>
-              ))}
-            </nav>
-            <ThemeToggle />
-          </div>
+    <div className="vscode-container">
+      {/* Activity Bar */}
+      <div className="flex w-12 flex-col items-center justify-between border-r border-[#3c3c3c] bg-[#333333] py-4 text-[#858585]">
+        <div className="flex flex-col gap-4">
+          <Files className="h-6 w-6 cursor-pointer text-white" />
+          <Search className="h-6 w-6 cursor-pointer hover:text-white" />
+          <GitBranch className="h-6 w-6 cursor-pointer hover:text-white" />
+          <Play className="h-6 w-6 cursor-pointer hover:text-white" />
+          <Blocks className="h-6 w-6 cursor-pointer hover:text-white" />
         </div>
-      </header>
+        <div className="flex flex-col gap-4">
+          <UserCircle className="h-6 w-6 cursor-pointer hover:text-white" />
+          <Settings className="h-6 w-6 cursor-pointer hover:text-white" />
+        </div>
+      </div>
 
-      {/* Hero Section - Aceternity Style */}
-      <section id="hero" className="relative flex min-h-screen w-full items-center justify-center overflow-hidden bg-background antialiased">
-        <Spotlight className="-top-40 left-0 md:left-60 md:-top-20" fill="white" />
-        
-        <div className="relative z-10 mx-auto max-w-7xl px-6 py-20 text-center">
-          <div className="mb-6 flex justify-center">
-            <span className="inline-flex items-center gap-2 rounded-full border border-primary/20 bg-primary/5 px-4 py-1.5 text-[10px] font-black uppercase tracking-[0.2em] text-primary">
-              <Sparkles className="h-3 w-3" />
-              Available for new projects
-            </span>
-          </div>
-          
-          <h1 className="bg-gradient-to-b from-foreground to-foreground/50 bg-clip-text text-5xl font-bold tracking-tight sm:text-7xl lg:text-8xl">
-            {profile.name}
-          </h1>
-          
-          <TextGenerateEffect 
-            words={profile.headline}
-            className="mt-8 max-w-2xl mx-auto text-center !text-lg md:!text-xl font-medium text-muted-foreground"
-          />
-
-          <div className="mt-16 flex flex-wrap items-center justify-center gap-8">
-            <a
-              href={ctaLinks.projects}
-              className="group relative inline-flex h-16 items-center justify-center overflow-hidden rounded-full bg-primary px-12 text-lg font-bold text-primary-foreground transition-all hover:scale-105 active:scale-95 shadow-2xl shadow-primary/20"
-            >
-              <span className="relative z-10 flex items-center gap-2">
-                Explore Work <ArrowUpRight className="h-5 w-5 transition-transform group-hover:translate-x-1 group-hover:-translate-y-1" />
-              </span>
-            </a>
-            <a
-              href={ctaLinks.contact}
-              className="inline-flex h-16 items-center justify-center rounded-full border border-input bg-background px-12 text-lg font-bold transition-all hover:bg-accent active:scale-95"
-            >
-              Contact Me
-            </a>
-          </div>
+      {/* Sidebar */}
+      <div className="hidden w-64 flex-col border-r border-[#3c3c3c] bg-[#252526] md:flex">
+        <div className="flex items-center justify-between px-4 py-3 text-[11px] font-bold uppercase tracking-wider text-[#bbbbbb]">
+          <span>Explorer</span>
+          <ChevronDown className="h-4 w-4" />
         </div>
         
-        {/* Decorative Grid */}
-        <div className="absolute inset-0 -z-10 h-full w-full bg-[linear-gradient(to_right,#80808012_1px,transparent_1px),linear-gradient(to_bottom,#80808012_1px,transparent_1px)] bg-[size:40px_40px] [mask-image:radial-gradient(ellipse_60%_50%_at_50%_0%,#000_70%,transparent_100%)]" />
-      </section>
-
-      {/* About Section */}
-      <section id="about" className="section-container border-t border-border relative">
-        <div className="max-w-4xl">
-          <h2 className="text-3xl font-bold tracking-tight sm:text-5xl mb-10">
-            About Me<span className="text-primary">.</span>
-          </h2>
-          <div className="space-y-8">
-            {about.map((paragraph, i) => (
-              <p key={i} className="text-lg leading-relaxed text-muted-foreground md:text-xl font-medium">
-                {paragraph}
-              </p>
+        <div className="flex flex-col">
+          <div className="flex items-center gap-1 px-2 py-1 text-[13px] font-bold">
+            <ChevronDown className="h-4 w-4" />
+            <span>PORTFOLIO</span>
+          </div>
+          
+          <div className="flex flex-col">
+            {FILES.map((file) => (
+              <div
+                key={file.name}
+                onClick={() => handleFileClick(file)}
+                className={cn(
+                  "flex cursor-pointer items-center gap-2 px-6 py-1 text-[13px] hover:bg-[#2a2d2e]",
+                  activeFile.name === file.name ? "bg-[#37373d] text-white" : "text-[#cccccc]"
+                )}
+              >
+                {file.icon}
+                <span>{file.name}</span>
+              </div>
             ))}
           </div>
         </div>
-      </section>
+      </div>
 
-      {/* Tech Stack Section */}
-      <section id="tech-stack" className="section-container border-t border-border bg-accent/5">
-        <h2 className="text-3xl font-bold tracking-tight sm:text-5xl mb-16 text-right">
-          Tech Stack<span className="text-primary">.</span>
-        </h2>
-        <div className="grid gap-12 md:grid-cols-2 lg:grid-cols-3">
-          {techStack.map((group) => (
-            <div key={group.title} className="space-y-6 p-6 rounded-2xl border border-border bg-background shadow-sm transition-all hover:border-primary/50 group">
-              <h3 className="text-[10px] font-bold uppercase tracking-[0.2em] text-primary">
-                {group.title}
-              </h3>
-              <div className="flex flex-wrap gap-3">
-                {group.items.map((item) => (
-                  <span
-                    key={item}
-                    className="text-base font-semibold text-muted-foreground transition-all group-hover:text-foreground hover:!text-primary"
-                  >
-                    {item}
-                  </span>
-                ))}
+      {/* Main Content Area */}
+      <div className="flex flex-1 flex-col overflow-hidden bg-[#1e1e1e]">
+        {/* Tabs Bar */}
+        <div className="flex h-9 w-full overflow-x-auto bg-[#252526] no-scrollbar">
+          {openFiles.map((file) => (
+            <div
+              key={file.name}
+              onClick={() => setActiveFile(file)}
+              className={cn(
+                "group flex min-w-[120px] cursor-pointer items-center justify-between border-r border-[#1e1e1e] px-3 text-[13px] transition-colors",
+                activeFile.name === file.name 
+                  ? "bg-[#1e1e1e] text-white border-t-2 border-t-[#007acc]" 
+                  : "bg-[#2d2d2d] text-[#969696] hover:bg-[#2b2b2b]"
+              )}
+            >
+              <div className="flex items-center gap-2">
+                {file.icon}
+                <span>{file.name}</span>
               </div>
+              <X 
+                onClick={(e) => closeFile(e, file.name)}
+                className="invisible h-3 w-3 rounded hover:bg-[#454545] group-hover:visible" 
+              />
             </div>
           ))}
         </div>
-      </section>
 
-      {/* Experience Section */}
-      <section id="experience" className="section-container border-t border-border">
-        <div className="max-w-5xl">
-          <h2 className="text-3xl font-bold tracking-tight sm:text-5xl mb-16">
-            Experience<span className="text-primary">.</span>
-          </h2>
-          <div className="space-y-20">
-            {experiences.map((exp, i) => (
-              <div key={i} className="group grid md:grid-cols-5 gap-8">
-                <div className="md:col-span-1">
-                  <span className="text-xs font-bold text-primary uppercase tracking-[0.2em]">{exp.period}</span>
-                </div>
-                <div className="md:col-span-4 space-y-4">
-                  <div className="space-y-1">
-                    <h3 className="text-2xl md:text-3xl font-bold tracking-tight text-foreground group-hover:text-primary transition-colors">{exp.role}</h3>
-                    <p className="text-lg font-semibold text-muted-foreground">{exp.company}</p>
-                  </div>
-                  <p className="text-lg leading-relaxed text-muted-foreground font-medium">
-                    {exp.summary}
-                  </p>
-                </div>
-              </div>
-            ))}
+        {/* Breadcrumbs */}
+        <div className="flex items-center gap-1 px-4 py-1 text-[12px] text-[#a9a9a9]">
+          <span>portfolio</span>
+          <ChevronRight className="h-3 w-3" />
+          <span>src</span>
+          <ChevronRight className="h-3 w-3" />
+          <span className="text-white">{activeFile.name}</span>
+        </div>
+
+        {/* Editor Area */}
+        <div className="flex-1 overflow-auto p-8 font-mono text-[14px] md:text-[16px] leading-relaxed">
+          <div className="mx-auto max-w-4xl">
+            {activeFile.name === "About.py" && <AboutContent />}
+            {activeFile.name === "Experience.ts" && <ExperienceContent />}
+            {activeFile.name === "Projects.json" && <ProjectsContent />}
+            {activeFile.name === "Skills.css" && <SkillsContent />}
+            {activeFile.name === "Contact.sh" && <ContactContent />}
           </div>
         </div>
-      </section>
 
-      {/* Education Section */}
-      <section id="education" className="section-container border-t border-border">
-        <div className="max-w-5xl">
-          <h2 className="text-3xl font-bold tracking-tight sm:text-5xl mb-16 text-right">
-            Education<span className="text-primary">.</span>
-          </h2>
-          <div className="space-y-16">
-            {education.map((edu, i) => (
-              <div key={i} className="grid md:grid-cols-5 gap-8">
-                <div className="md:col-span-1">
-                  <span className="text-xs font-bold text-primary uppercase tracking-[0.2em]">{edu.period}</span>
-                </div>
-                <div className="md:col-span-4 space-y-2">
-                  <h3 className="text-2xl md:text-3xl font-bold tracking-tight text-foreground">{edu.degree}</h3>
-                  <p className="text-lg font-semibold text-muted-foreground">{edu.school}</p>
-                  <p className="text-base text-muted-foreground/60 font-medium">{edu.location}</p>
-                </div>
-              </div>
-            ))}
+        {/* Status Bar */}
+        <div className="flex h-6 w-full items-center justify-between bg-[#007acc] px-3 text-[12px] text-white">
+          <div className="flex items-center gap-4">
+            <div className="flex items-center gap-1 hover:bg-[#1f8ad2] px-1 cursor-pointer">
+              <GitBranch className="h-3 w-3" />
+              <span>main*</span>
+            </div>
+            <div className="flex items-center gap-1 hover:bg-[#1f8ad2] px-1 cursor-pointer">
+              <Circle className="h-2 w-2 fill-white" />
+              <span>0 Errors</span>
+            </div>
+          </div>
+          <div className="flex items-center gap-4">
+            <span className="hover:bg-[#1f8ad2] px-1 cursor-pointer">UTF-8</span>
+            <span className="hover:bg-[#1f8ad2] px-1 cursor-pointer uppercase">{activeFile.type}</span>
+            <span className="hover:bg-[#1f8ad2] px-1 cursor-pointer">saksh3j v1.0</span>
           </div>
         </div>
-      </section>
+      </div>
+    </div>
+  );
+}
 
-      {/* Projects Section - Bento Grid Style */}
-      <section id="projects" className="section-container border-t border-border bg-primary/[0.02]">
-        <h2 className="text-3xl font-bold tracking-tight sm:text-5xl mb-16 text-center">
-          Projects<span className="text-primary">.</span>
-        </h2>
-        <BentoGrid className="max-w-6xl mx-auto">
-          {projects.map((project, i) => (
-            <BentoGridItem
-              key={project.title}
-              title={project.title}
-              description={project.description}
-              header={
-                <div className="flex flex-1 w-full h-full min-h-[6rem] rounded-xl bg-gradient-to-br from-neutral-100 dark:from-neutral-900 dark:to-neutral-800 to-neutral-50 p-4 flex-col justify-between overflow-hidden relative group border border-border/50">
-                  <div className="flex flex-wrap gap-2 relative z-10">
-                    {project.stack.slice(0, 3).map(s => (
-                      <span key={s} className="text-[8px] font-bold uppercase tracking-widest text-primary bg-background/80 backdrop-blur-sm px-2 py-1 rounded-full">
-                        {s}
-                      </span>
-                    ))}
-                  </div>
-                  <ArrowUpRight className="h-6 w-6 text-primary absolute bottom-3 right-3 transition-transform group-hover:scale-110 group-hover:translate-x-0.5 group-hover:-translate-y-0.5" />
-                </div>
-              }
-              icon={i % 2 === 0 ? <Code2 className="h-4 w-4 text-primary" /> : <Globe className="h-4 w-4 text-primary" />}
-              className={i === 3 || i === 6 ? "md:col-span-2" : ""}
-            />
+function AboutContent() {
+  return (
+    <div className="space-y-2">
+      <p><span className="code-keyword">class</span> <span className="code-function">Saksh3j</span>:</p>
+      <div className="pl-8 space-y-2">
+        <p><span className="code-keyword">def</span> <span className="code-function">__init__</span>(<span className="code-variable">self</span>):</p>
+        <div className="pl-8 space-y-1">
+          <p><span className="code-variable">self</span>.name = <span className="code-string">&quot;{profile.name}&quot;</span></p>
+          <p><span className="code-variable">self</span>.role = <span className="code-string">&quot;{profile.role}&quot;</span></p>
+          <p><span className="code-variable">self</span>.location = <span className="code-string">&quot;{profile.location}&quot;</span></p>
+        </div>
+        <p className="mt-4"><span className="code-keyword">def</span> <span className="code-function">get_bio</span>(<span className="code-variable">self</span>):</p>
+        <div className="pl-8 text-[#cccccc]">
+          <span className="code-string">&quot;&quot;&quot;</span>
+          {about.map((p, i) => (
+            <p key={i} className="mt-2 text-[#ce9178]">{p}</p>
           ))}
-        </BentoGrid>
-      </section>
+          <span className="code-string">&quot;&quot;&quot;</span>
+        </div>
+      </div>
+    </div>
+  );
+}
 
-      {/* Contact Section - Background Beams */}
-      <section id="contact" className="section-container border-t border-border relative overflow-hidden">
-        <BackgroundBeams />
-        <div className="max-w-5xl mx-auto relative z-10">
-          <h2 className="text-3xl font-bold tracking-tight sm:text-5xl mb-10 text-center">
-            Contact<span className="text-primary">.</span>
-          </h2>
-          <p className="text-lg text-muted-foreground text-center mb-16 max-w-xl mx-auto font-medium">
-            Currently open to new opportunities and collaborations. Drop a message!
-          </p>
-          
-          <div className="grid gap-6 md:grid-cols-3 mb-16">
-            {contactLinks.filter(l => ["email", "linkedin", "github"].includes(l.type)).map((link) => (
-              <a
-                key={link.type}
-                href={link.href}
-                target={link.external ? "_blank" : undefined}
-                className="flex flex-col items-center gap-4 rounded-2xl border border-border p-8 transition-all hover:bg-background/50 hover:border-primary/50 group backdrop-blur-sm shadow-sm"
-              >
-                <div className="flex h-12 w-12 items-center justify-center rounded-xl bg-primary/10 text-primary transition-all group-hover:bg-primary group-hover:text-white">
-                  <ArrowUpRight className="h-6 w-6" />
-                </div>
-                <div className="text-center">
-                  <p className="text-[10px] font-bold uppercase tracking-[0.2em] text-muted-foreground mb-1">
-                    {link.label}
-                  </p>
-                  <p className="text-lg font-bold tracking-tight">{link.value}</p>
-                </div>
-              </a>
+function ExperienceContent() {
+  return (
+    <div className="space-y-6">
+      <p><span className="code-keyword">interface</span> <span className="code-function">Experience</span> {"{"}</p>
+      <div className="pl-8 space-y-8">
+        {experiences.map((exp, i) => (
+          <div key={i} className="border-l-2 border-[#3c3c3c] pl-4">
+            <p><span className="code-comment">// {exp.period}</span></p>
+            <p><span className="code-keyword">const</span> <span className="code-variable">{exp.company.replace(/\s+/g, '')}</span> = {"{"}</p>
+            <div className="pl-8">
+              <p>role: <span className="code-string">&quot;{exp.role}&quot;</span>,</p>
+              <p>summary: <span className="code-string">&quot;{exp.summary}&quot;</span></p>
+            </div>
+            <p>{"};"}</p>
+          </div>
+        ))}
+      </div>
+      <p>{"}"}</p>
+    </div>
+  );
+}
+
+function ProjectsContent() {
+  return (
+    <div className="text-[#9cdcfe]">
+      <p className="text-[#cccccc]">{"["}</p>
+      {projects.map((project, i) => (
+        <div key={i} className="pl-8 py-2">
+          <p className="text-[#cccccc]">{"{"}</p>
+          <div className="pl-8">
+            <p><span className="text-[#9cdcfe]">&quot;title&quot;</span>: <span className="code-string">&quot;{project.title}&quot;</span>,</p>
+            <p><span className="text-[#9cdcfe]">&quot;description&quot;</span>: <span className="code-string">&quot;{project.description}&quot;</span>,</p>
+            <p><span className="text-[#9cdcfe]">&quot;stack&quot;</span>: [<span className="code-string">{project.stack.map(s => `"${s}"`).join(", ")}</span>]</p>
+          </div>
+          <p className="text-[#cccccc]">{"}"}{i < projects.length - 1 ? "," : ""}</p>
+        </div>
+      ))}
+      <p className="text-[#cccccc]">{"]"}</p>
+    </div>
+  );
+}
+
+function SkillsContent() {
+  return (
+    <div className="space-y-8">
+      {techStack.map((group, i) => (
+        <div key={i}>
+          <p className="code-function">.{group.title.toLowerCase().replace(/\s+/g, '-')}</p>
+          <div className="pl-8 border-l-2 border-[#3c3c3c]">
+            {group.items.map((item, j) => (
+              <p key={j}><span className="code-keyword">{item.toLowerCase().replace(/\s+/g, '-')}</span>: <span className="code-number">mastered</span>;</p>
             ))}
           </div>
-
-          <div className="rounded-[2rem] border border-border p-8 sm:p-12 bg-background/50 backdrop-blur-xl shadow-xl">
-            <ContactForm />
-          </div>
         </div>
-      </section>
+      ))}
+    </div>
+  );
+}
 
-      <footer className="border-t border-border py-12 text-center">
-        <p className="text-xs font-black uppercase tracking-[0.4em] text-muted-foreground">
-          Built with precision by saksh3j © 2024
-        </p>
-      </footer>
-    </main>
+function ContactContent() {
+  return (
+    <div className="space-y-4">
+      <p className="code-comment">#!/bin/bash</p>
+      <p><span className="code-keyword">echo</span> <span className="code-string">&quot;Connecting to saksh3j...&quot;</span></p>
+      <div className="space-y-2 mt-6">
+        <p><span className="code-variable">EMAIL</span>=<span className="code-string">&quot;jain.merge@gmail.com&quot;</span></p>
+        <p><span className="code-variable">GITHUB</span>=<span className="code-string">&quot;https://github.com/saksh3j&quot;</span></p>
+        <p><span className="code-variable">LINKEDIN</span>=<span className="code-string">&quot;https://linkedin.com/in/saksh3j&quot;</span></p>
+      </div>
+      <p className="mt-8 text-green-400"># Run the form to send a message</p>
+      <p className="code-function">./send_message.sh</p>
+    </div>
   );
 }
