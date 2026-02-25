@@ -13,6 +13,7 @@ import {
 } from "@/data/portfolio";
 import { personJsonLd, websiteJsonLd } from "@/lib/seo";
 import { ArrowUpRight } from "lucide-react";
+import Link from "next/link";
 
 export default function Home() {
   return (
@@ -29,9 +30,7 @@ export default function Home() {
       {/* Modern Fixed Navbar */}
       <header className="sticky top-0 z-50 w-full border-b border-border bg-background/80 backdrop-blur-md">
         <div className="mx-auto flex h-16 max-w-4xl items-center justify-between px-6">
-          <p className="text-sm font-bold tracking-tight">
-            {profile.name}
-          </p>
+          <p className="text-sm font-bold tracking-tight">{profile.name}</p>
           <div className="flex items-center gap-6">
             <nav className="hidden items-center gap-6 md:flex">
               {navItems.map((item) => (
@@ -46,7 +45,9 @@ export default function Home() {
       </header>
 
       {/* Hero Section */}
-      <section id="hero" className="relative flex min-h-screen items-center justify-center overflow-hidden px-6">
+      <section
+        id="hero"
+        className="relative flex min-h-screen items-center justify-center overflow-hidden px-6">
         <div className="absolute inset-0 -z-10 bg-[radial-gradient(circle_at_50%_50%,rgba(0,0,0,0)_0%,hsl(var(--background))_100%)]" />
         <div className="mx-auto max-w-5xl text-center">
           <p className="text-reveal text-sm font-bold uppercase tracking-[0.3em] text-muted-foreground">
@@ -61,14 +62,12 @@ export default function Home() {
           <div className="text-reveal [animation-delay:400ms] mt-16 flex flex-wrap items-center justify-center gap-8">
             <a
               href={ctaLinks.projects}
-              className="inline-flex h-16 items-center justify-center rounded-full bg-primary px-12 text-lg font-bold text-primary-foreground transition-all hover:scale-105 active:scale-95 shadow-2xl shadow-primary/20"
-            >
+              className="inline-flex h-16 items-center justify-center rounded-full bg-primary px-12 text-lg font-bold text-primary-foreground transition-all hover:scale-105 active:scale-95 shadow-2xl shadow-primary/20">
               View My Work
             </a>
             <a
               href={ctaLinks.contact}
-              className="inline-flex h-16 items-center justify-center rounded-full border border-input bg-background px-12 text-lg font-bold transition-all hover:bg-accent active:scale-95"
-            >
+              className="inline-flex h-16 items-center justify-center rounded-full border border-input bg-background px-12 text-lg font-bold transition-all hover:bg-accent active:scale-95">
               Get in Touch
             </a>
           </div>
@@ -78,10 +77,14 @@ export default function Home() {
       {/* About Section */}
       <section id="about" className="section-container border-t border-border">
         <div className="max-w-4xl">
-          <h2 className="text-4xl font-bold tracking-tight sm:text-6xl mb-12">About</h2>
+          <h2 className="text-4xl font-bold tracking-tight sm:text-6xl mb-12">
+            About
+          </h2>
           <div className="space-y-8">
             {about.map((paragraph, i) => (
-              <p key={i} className="text-xl leading-relaxed text-muted-foreground md:text-2xl">
+              <p
+                key={i}
+                className="text-xl leading-relaxed text-muted-foreground md:text-2xl">
                 {paragraph}
               </p>
             ))}
@@ -90,8 +93,12 @@ export default function Home() {
       </section>
 
       {/* Tech Stack Section - New Categorized Layout */}
-      <section id="tech-stack" className="section-container border-t border-border">
-        <h2 className="text-4xl font-bold tracking-tight sm:text-6xl mb-16">Tech Stack</h2>
+      <section
+        id="tech-stack"
+        className="section-container border-t border-border">
+        <h2 className="text-4xl font-bold tracking-tight sm:text-6xl mb-16">
+          Tech Stack
+        </h2>
         <div className="grid gap-12 md:grid-cols-2 lg:grid-cols-3">
           {techStack.map((group) => (
             <div key={group.title} className="space-y-6">
@@ -102,8 +109,7 @@ export default function Home() {
                 {group.items.map((item) => (
                   <span
                     key={item}
-                    className="text-lg font-medium text-muted-foreground transition-colors hover:text-foreground"
-                  >
+                    className="text-lg font-medium text-muted-foreground transition-colors hover:text-foreground">
                     {item}
                   </span>
                 ))}
@@ -114,18 +120,28 @@ export default function Home() {
       </section>
 
       {/* Experience Section */}
-      <section id="experience" className="section-container border-t border-border">
+      <section
+        id="experience"
+        className="section-container border-t border-border">
         <div className="max-w-4xl">
-          <h2 className="text-4xl font-bold tracking-tight sm:text-6xl mb-20">Experience</h2>
+          <h2 className="text-4xl font-bold tracking-tight sm:text-6xl mb-20">
+            Experience
+          </h2>
           <div className="space-y-24">
             {experiences.map((exp, i) => (
               <div key={i} className="group grid md:grid-cols-4 gap-8">
                 <div className="md:col-span-1">
-                  <span className="text-sm font-bold text-muted-foreground uppercase tracking-widest">{exp.period}</span>
+                  <span className="text-sm font-bold text-muted-foreground uppercase tracking-widest">
+                    {exp.period}
+                  </span>
                 </div>
                 <div className="md:col-span-3 space-y-4">
-                  <h3 className="text-2xl font-bold text-foreground">{exp.role}</h3>
-                  <p className="text-lg font-medium text-primary">{exp.company}</p>
+                  <h3 className="text-2xl font-bold text-foreground">
+                    {exp.role}
+                  </h3>
+                  <p className="text-lg font-medium text-primary">
+                    {exp.company}
+                  </p>
                   <p className="text-lg leading-relaxed text-muted-foreground">
                     {exp.summary}
                   </p>
@@ -137,19 +153,29 @@ export default function Home() {
       </section>
 
       {/* Education Section */}
-      <section id="education" className="section-container border-t border-border">
+      <section
+        id="education"
+        className="section-container border-t border-border">
         <div className="max-w-4xl">
-          <h2 className="text-4xl font-bold tracking-tight sm:text-6xl mb-20">Education</h2>
+          <h2 className="text-4xl font-bold tracking-tight sm:text-6xl mb-20">
+            Education
+          </h2>
           <div className="space-y-16">
             {education.map((edu, i) => (
               <div key={i} className="grid md:grid-cols-4 gap-8">
                 <div className="md:col-span-1">
-                  <span className="text-sm font-bold text-muted-foreground uppercase tracking-widest">{edu.period}</span>
+                  <span className="text-sm font-bold text-muted-foreground uppercase tracking-widest">
+                    {edu.period}
+                  </span>
                 </div>
                 <div className="md:col-span-3 space-y-2">
-                  <h3 className="text-2xl font-bold text-foreground">{edu.degree}</h3>
+                  <h3 className="text-2xl font-bold text-foreground">
+                    {edu.degree}
+                  </h3>
                   <p className="text-xl text-muted-foreground">{edu.school}</p>
-                  <p className="text-lg text-muted-foreground/60">{edu.location}</p>
+                  <p className="text-lg text-muted-foreground/60">
+                    {edu.location}
+                  </p>
                 </div>
               </div>
             ))}
@@ -158,59 +184,97 @@ export default function Home() {
       </section>
 
       {/* Projects Section */}
-      <section id="projects" className="section-container border-t border-border">
-        <h2 className="text-4xl font-bold tracking-tight sm:text-5xl mb-16 text-center">Featured Projects</h2>
+      <section
+        id="projects"
+        className="section-container border-t border-border">
+        <h2 className="text-4xl font-bold tracking-tight sm:text-5xl mb-16 text-center">
+          Featured Projects
+        </h2>
         <div className="grid gap-8 sm:grid-cols-2 max-w-5xl mx-auto">
           {projects.map((project) => (
-            <article key={project.title} className="rounded-2xl border border-border bg-card p-10 shadow-sm transition-all hover:shadow-2xl hover:-translate-y-2 group">
-              <div className="flex items-start justify-between">
-                <h3 className="text-2xl font-bold text-foreground group-hover:text-primary transition-colors">
-                  {project.title}
-                </h3>
-                <ArrowUpRight className="h-6 w-6 text-muted-foreground transition-transform group-hover:-translate-y-1 group-hover:translate-x-1" />
-              </div>
-              <p className="mt-6 text-lg leading-relaxed text-muted-foreground">
-                {project.description}
-              </p>
-              <div className="mt-10 flex flex-wrap gap-3">
-                {project.stack.map(s => (
-                  <span key={s} className="text-xs font-bold uppercase tracking-widest text-primary bg-primary/10 px-3 py-1 rounded-full">
-                    {s}
-                  </span>
-                ))}
-              </div>
-            </article>
+            <div key={project.title}>
+              {project.Link ? (
+                <Link href={project.Link}>
+                  <article className="rounded-2xl border border-border bg-card p-10 shadow-sm transition-all hover:shadow-2xl hover:-translate-y-2 group cursor-pointer">
+                    <div className="flex items-start justify-between">
+                      <h3 className="text-2xl font-bold text-foreground group-hover:text-primary transition-colors">
+                        {project.title}
+                      </h3>
+                      <ArrowUpRight className="h-6 w-6 text-muted-foreground transition-transform group-hover:-translate-y-1 group-hover:translate-x-1" />
+                    </div>
+                    <p className="mt-6 text-lg leading-relaxed text-muted-foreground">
+                      {project.description}
+                    </p>
+                    <div className="mt-10 flex flex-wrap gap-3">
+                      {project.stack.map((s) => (
+                        <span
+                          key={s}
+                          className="text-xs font-bold uppercase tracking-widest text-primary bg-primary/10 px-3 py-1 rounded-full">
+                          {s}
+                        </span>
+                      ))}
+                    </div>
+                  </article>
+                </Link>
+              ) : (
+                <article className="rounded-2xl border border-border bg-card p-10 shadow-sm transition-all hover:shadow-2xl hover:-translate-y-2 group">
+                  <div className="flex items-start justify-between">
+                    <h3 className="text-2xl font-bold text-foreground group-hover:text-primary transition-colors">
+                      {project.title}
+                    </h3>
+                  </div>
+                  <p className="mt-6 text-lg leading-relaxed text-muted-foreground">
+                    {project.description}
+                  </p>
+                  <div className="mt-10 flex flex-wrap gap-3">
+                    {project.stack.map((s) => (
+                      <span
+                        key={s}
+                        className="text-xs font-bold uppercase tracking-widest text-primary bg-primary/10 px-3 py-1 rounded-full">
+                        {s}
+                      </span>
+                    ))}
+                  </div>
+                </article>
+              )}
+            </div>
           ))}
         </div>
       </section>
 
       {/* Contact Section */}
-      <section id="contact" className="section-container border-t border-border">
+      <section
+        id="contact"
+        className="section-container border-t border-border">
         <div className="max-w-4xl mx-auto">
-          <h2 className="text-4xl font-bold tracking-tight sm:text-5xl mb-8 text-center">Get in Touch</h2>
+          <h2 className="text-4xl font-bold tracking-tight sm:text-5xl mb-8 text-center">
+            Get in Touch
+          </h2>
           <p className="text-xl text-muted-foreground text-center mb-16 max-w-2xl mx-auto">
-            I'm currently open to new opportunities and collaborations. Feel free to reach out!
+            I&apos;m currently open to new opportunities and collaborations.
+            Feel free to reach out!
           </p>
-          
+
           <div className="grid gap-6 md:grid-cols-3 mb-20">
-            {contactLinks.filter(l => ["email", "linkedin", "github"].includes(l.type)).map((link) => (
-              <a
-                key={link.type}
-                href={link.href}
-                target={link.external ? "_blank" : undefined}
-                className="flex flex-col items-center gap-4 rounded-2xl border border-border p-8 transition-all hover:bg-accent hover:border-primary/50 group"
-              >
-                <div className="flex h-14 w-14 items-center justify-center rounded-full bg-primary/10 text-primary transition-colors group-hover:bg-primary group-hover:text-white">
-                  <ArrowUpRight className="h-6 w-6" />
-                </div>
-                <div className="text-center">
-                  <p className="text-xs font-bold uppercase tracking-widest text-muted-foreground mb-1">
-                    {link.label}
-                  </p>
-                  <p className="text-lg font-bold">{link.value}</p>
-                </div>
-              </a>
-            ))}
+            {contactLinks
+              .filter((l) => ["email", "linkedin", "github"].includes(l.type))
+              .map((link) => (
+                <a
+                  key={link.type}
+                  href={link.href}
+                  target={link.external ? "_blank" : undefined}
+                  className="flex flex-col items-center gap-4 rounded-2xl border border-border p-8 transition-all hover:bg-accent hover:border-primary/50 group">
+                  <div className="flex h-14 w-14 items-center justify-center rounded-full bg-primary/10 text-primary transition-colors group-hover:bg-primary group-hover:text-white">
+                    <ArrowUpRight className="h-6 w-6" />
+                  </div>
+                  <div className="text-center">
+                    <p className="text-xs font-bold uppercase tracking-widest text-muted-foreground mb-1">
+                      {link.label}
+                    </p>
+                    <p className="text-lg font-bold">{link.value}</p>
+                  </div>
+                </a>
+              ))}
           </div>
 
           <div className="rounded-3xl border border-border p-10 sm:p-16 bg-accent/10">

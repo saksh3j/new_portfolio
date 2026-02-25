@@ -38,6 +38,7 @@ export interface ProjectItem {
   title: string;
   description: string;
   stack: string[];
+  Link?: string;
 }
 
 export const profile = {
@@ -138,6 +139,7 @@ export const projects: ProjectItem[] = [
     description:
       "Real-time chat application using React and Node.js + Socket.io, enabling instant bi-directional messaging with room-based conversations and responsive UI.",
     stack: ["React", "Node.js", "Socket.io"],
+    Link: "syncnest-chat.netlify.app",
   },
   {
     title: "StackPilot",
