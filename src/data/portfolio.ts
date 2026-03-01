@@ -131,6 +131,17 @@ export const education: EducationItem[] = [
     period: "Sept. 2021 – June 2025",
     location: "Jaipur, India",
   },
+  {
+    school: "St. Wilfrid's Sr. Sec. School, Jaipur",
+    degree: "Higher Secondary Education",
+    period: "Sept. 2020 – June 2021",
+    location: "Jaipur, India",
+  },{
+    school: "St. Wilfrid's Sr. Sec. School, Jaipur",
+    degree: "Secondary Education",
+    period: "Sept. 2018 – June 2019",
+    location: "Jaipur, India",
+  }
 ];
 
 export const projects: ProjectItem[] = [
@@ -139,7 +150,7 @@ export const projects: ProjectItem[] = [
     description:
       "Real-time chat application using React and Node.js + Socket.io, enabling instant bi-directional messaging with room-based conversations and responsive UI.",
     stack: ["React", "Node.js", "Socket.io"],
-    Link: "syncnest-chat.netlify.app",
+    Link: "https://syncnest-chat.netlify.app",
   },
   {
     title: "StackPilot",

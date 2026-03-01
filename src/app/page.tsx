@@ -4,8 +4,8 @@ import {
   about,
   contactLinks,
   ctaLinks,
-  experiences,
   education,
+  experiences,
   navItems,
   profile,
   projects,
@@ -16,6 +16,7 @@ import { ArrowUpRight } from "lucide-react";
 import Link from "next/link";
 
 export default function Home() {
+// let redirectLink=redirect("https://syncnest-chat.netlify.app")
   return (
     <main className="min-h-screen selection:bg-primary/10">
       <script
@@ -194,7 +195,7 @@ export default function Home() {
           {projects.map((project) => (
             <div key={project.title}>
               {project.Link ? (
-                <Link href={project.Link}>
+                <Link href={project.Link} target="_blank">
                   <article className="rounded-2xl border border-border bg-card p-10 shadow-sm transition-all hover:shadow-2xl hover:-translate-y-2 group cursor-pointer">
                     <div className="flex items-start justify-between">
                       <h3 className="text-2xl font-bold text-foreground group-hover:text-primary transition-colors">
